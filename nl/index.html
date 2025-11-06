@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Attrape-Rêves - Wonderpark</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange-terracotta: #D17A47;
+            --bleu-ciel: #87CEEB;
+            --vert-nature: #4A7C59;
+            --jaune-soleil: #F4D03F;
+        }
+        
+        /* Logo met native transparantie */
+        img[src*="logo-attrape-reves"] {
+            background: transparent !important;
+        }
+        
+        .hero-background {
+            background-image: url('https://page.gensparksite.com/v1/base64_upload/e8ca8d40f500ce564cf9a7946b81ba29');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        
+        /* Verwijder wit filter - zeer lichte overlay voor leesbaarheid */
+        .hero-overlay {
+            background: linear-gradient(45deg, rgba(74, 124, 89, 0.2), rgba(135, 206, 235, 0.1));
+        }
+        
+        /* Verbeterd mobiel menu */
+        .mobile-menu {
+            display: none;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        /* Verbeterde hero sectie uitlijning */
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 100vh;
+            padding: 120px 16px 60px;
+        }
+        
+        /* Responsief logo */
+        .logo-hero {
+            width: 180px;
+            height: 180px;
+            max-width: 40vw;
+            max-height: 40vw;
+        }
+        
+        .logo-nav {
+            width: 48px;
+            height: 48px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: 100px 16px 40px;
+            }
+            
+            .logo-hero {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .logo-nav {
+                width: 40px;
+                height: 40px;
+            }
+        }
+        
+        .floating-content {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        
+        /* Carrousel stijlen */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+        }
+        
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.8);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            z-index: 10;
+        }
+        
+        .carousel-prev { left: 10px; }
+        .carousel-next { right: 10px; }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+        
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .carousel-dot.active {
+            background: white;
+        }
+
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'orange-terracotta': '#D17A47',
+                        'bleu-ciel': '#87CEEB',
+                        'vert-nature': '#4A7C59',
+                        'jaune-soleil': '#F4D03F'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter">
+    <!-- Zwevende navigatie -->
+    <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 py-3">
+            <div class="glass-card rounded-full px-6 py-3 flex items-center justify-between shadow-lg">
+                <!-- Logo met behouden transparante achtergrond -->
+                <div class="flex items-center space-x-3">
+                    <img src="/logo-attrape-reves.png" 
+                         alt="L'Attrape-Rêves Logo" class="logo-nav object-contain">
+                    <span class="font-bold text-vert-nature hidden sm:block">L'Attrape-Rêves</span>
+                </div>
+                
+                <!-- Desktop navigatiemenu -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#home" class="text-vert-nature hover:text-orange-terracotta transition-colors font-medium">Home</a>
+                    <a href="#park" class="text-vert-nature hover:text-orange-terracotta transition-colors font-medium">Het Park</a>
+                    <a href="#events" class="text-vert-nature hover:text-orange-terracotta transition-colors font-medium">Evenementen</a>
+                    <a href="#contact" class="text-vert-nature hover:text-orange-terracotta transition-colors font-medium">Contact</a>
+                </div>
+                
+                <!-- Taalkeuze + Mobiel menu -->
+                <div class="flex items-center space-x-3">
+                    <!-- Taalkeuze -->
+                    <div class="flex rounded-full bg-white/50 p-1">
+                        <button onclick="window.location.href='/'" class="px-3 py-1 text-vert-nature hover:bg-white/50 rounded-full text-sm">FR</button>
+                        <button onclick="window.location.href='/en'" class="px-3 py-1 text-vert-nature hover:bg-white/50 rounded-full text-sm">EN</button>
+                        <button class="px-3 py-1 rounded-full bg-vert-nature text-white text-sm font-medium">NL</button>
+                    </div>
+                    
+                    <!-- Mobiel menu knop -->
+                    <button class="md:hidden bg-white/50 rounded-full p-2" onclick="toggleMobileMenu()" id="mobile-menu-btn">
+                        <svg class="w-6 h-6 text-vert-nature" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobiel menu -->
+            <div class="mobile-menu mt-3" id="mobile-menu">
+                <div class="glass-card rounded-2xl p-4 shadow-lg">
+                    <div class="space-y-3">
+                        <a href="#home" class="block text-vert-nature hover:text-orange-terracotta transition-colors font-medium py-2" onclick="closeMobileMenu()">🏠 Home</a>
+                        <a href="#park" class="block text-vert-nature hover:text-orange-terracotta transition-colors font-medium py-2" onclick="closeMobileMenu()">🌳 Het Park</a>
+                        <a href="#events" class="block text-vert-nature hover:text-orange-terracotta transition-colors font-medium py-2" onclick="closeMobileMenu()">🎪 Evenementen</a>
+                        <a href="#contact" class="block text-vert-nature hover:text-orange-terracotta transition-colors font-medium py-2" onclick="closeMobileMenu()">📞 Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero sectie met achtergrondafbeelding -->
+    <section id="home" class="hero-background min-h-screen flex items-center justify-center relative">
+        <div class="hero-overlay absolute inset-0"></div>
+        
+        <div class="hero-content relative z-10">
+            <!-- Hoofdlogo -->
+            <div class="floating-content mb-6">
+                <img src="/logo-attrape-reves.png" 
+                     alt="L'Attrape-Rêves" class="logo-hero mx-auto mb-6 drop-shadow-lg object-contain">
+            </div>
+            
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 text-shadow floating-content">
+                L'Attrape-Rêves
+            </h1>
+            
+            <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/95 mb-6 sm:mb-8 text-shadow floating-content" style="animation-delay: 0.5s;">
+                Wonderpark in Gravières
+            </p>
+            
+            <div class="max-w-3xl mx-auto mb-8 sm:mb-12 floating-content" style="animation-delay: 1s;">
+                <p class="text-base sm:text-lg md:text-xl text-white/95 leading-relaxed text-shadow px-4">
+                    Een magische plek waar natuur kunst, leren en spelen ontmoet. 
+                    Kom onze dieren ontdekken, onze waterspelen, ons bamboebos en nog veel meer...
+                </p>
+            </div>
+            
+        </div>
+        
+        <!-- Einde hero sectie -->
+    </section>
+
+    <!-- Presentatie Sectie -->
+    <section id="park" class="py-20 bg-gradient-to-br from-green-50 to-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-bold text-vert-nature mb-8">Een unieke plek wacht op u</h2>
+                <p class="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
+                    Bij L'Attrape-Rêves vertelt elke hoek een verhaal. Onze dieren verwelkomen u, 
+                    onze ruimtes nodigen u uit om te verkennen, en onze activiteiten wekken uw nieuwsgierigheid. 
+                    Kom ontdekken wat we u hier niet kunnen tonen...
+                </p>
+            </div>
+            
+            <!-- Kaarten met mini-carrousels -->
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <!-- Natuur & Dieren met carrousel -->
+                <div class="glass-card rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                    <div class="aspect-video rounded-xl mb-6 carousel-container" id="carousel-animaux">
+                        <div class="carousel-track">
+                            <div class="carousel-slide bg-gradient-to-br from-green-200 to-green-300 flex items-center justify-center">
+                                <div class="text-center text-vert-nature">
+                                    <div class="text-6xl mb-2">🐐</div>
+                                    <p class="text-sm font-medium">Onze geiten</p>
+                                </div>
+                            </div>
+                            <div class="carousel-slide bg-gradient-to-br from-pink-200 to-pink-300 flex items-center justify-center">
+                                <div class="text-center text-pink-700">
+                                    <div class="text-6xl mb-2">🐷</div>
+                                    <p class="text-sm font-medium">Onze varkens</p>
+                                </div>
+                            </div>
+                            <div class="carousel-slide bg-gradient-to-br from-yellow-200 to-yellow-300 flex items-center justify-center">
+                                <div class="text-center text-yellow-700">
+                                    <div class="text-6xl mb-2">🐴</div>
+                                    <p class="text-sm font-medium">Onze ezels</p>
+                                </div>
+                            </div>
+                            <div class="carousel-slide bg-gradient-to-br from-orange-200 to-orange-300 flex items-center justify-center">
+                                <div class="text-center text-orange-700">
+                                    <div class="text-6xl mb-2">🐓</div>
+                                    <p class="text-sm font-medium">Onze kippen</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-nav carousel-prev" onclick="changeSlide('carousel-animaux', -1)">‹</button>
+                        <button class="carousel-nav carousel-next" onclick="changeSlide('carousel-animaux', 1)">›</button>
+                        <div class="carousel-indicators">
+                            <div class="carousel-dot active" onclick="goToSlide('carousel-animaux', 0)"></div>
+                            <div class="carousel-dot" onclick="goToSlide('carousel-animaux', 1)"></div>
+                            <div class="carousel-dot" onclick="goToSlide('carousel-animaux', 2)"></div>
+                            <div class="carousel-dot" onclick="goToSlide('carousel-animaux', 3)"></div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-vert-nature mb-4">Natuur & Dieren</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Authentieke ontmoetingen in een beschermd natuurlijk kader. 
+                            Onze ezels, geiten, varkens en kippen wachten op u voor tedere en vrolijke momenten.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Activiteiten & Ontdekkingen met carrousel -->
+                <div class="glass-card rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                    <div class="aspect-video rounded-xl mb-6 carousel-container" id="carousel-activites">
+                        <div class="carousel-track">
+                            <div class="carousel-slide bg-gradient-to-br from-purple-200 to-purple-300 flex items-center justify-center">
+                                <div class="text-center text-purple-700">
+                                    <div class="text-6xl mb-2">🎭</div>
+                                    <p class="text-sm font-medium">Leuke spelletjes</p>
+                                </div>
+                            </div>
+                            <div class="carousel-slide bg-gradient-to-br from-red-200 to-red-300 flex items-center justify-center">
+                                <div class="text-center text-red-700">
+                                    <div class="text-6xl mb-2">🏰</div>
+                                    <p class="text-sm font-medium">Hutten</p>
+                                </div>
+                            </div>
+                            <div class="carousel-slide bg-gradient-to-br from-indigo-200 to-indigo-300 flex items-center justify-center">
+                                <div class="text-center text-indigo-700">
+                                    <div class="text-6xl mb-2">🎪</div>
+                                    <p class="text-sm font-medium">Installaties</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-nav carousel-prev" onclick="changeSlide('carousel-activites', -1)">‹</button>
+                        <button class="carousel-nav carousel-next" onclick="changeSlide('carousel-activites', 1)">›</button>
+                        <div class="carousel-indicators">
+                            <div class="carousel-dot active" onclick="goToSlide('carousel-activites', 0)"></div>
+                            <div class="carousel-dot" onclick="goToSlide('carousel-activites', 1)"></div>
+                            <div class="carousel-dot" onclick="goToSlide('carousel-activites', 2)"></div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-orange-terracotta mb-4">Activiteiten & Ontdekkingen</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Leuke spelletjes, vrolijke installaties, hutten en shows. 
+                            Een oneindige speeltuin voor ieders verbeelding.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Ontspanning & Welzijn met carrousel -->
+                <div class="glass-card rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                    <div class="aspect-video rounded-xl mb-6 carousel-container" id="carousel-detente">
+                        <div class="carousel-track">
+                            <div class="carousel-slide bg-gradient-to-br from-blue-200 to-blue-300 flex items-center justify-center">
+                                <div class="text-center text-blue-700">
+                                    <div class="text-6xl mb-2">🌊</div>
+                                    <p class="text-sm font-medium">De Chassezac</p>
+                                </div>
+                            </div>
+                            <div class="carousel-slide bg-gradient-to-br from-green-200 to-green-300 flex items-center justify-center">
+                                <div class="text-center text-green-700">
+                                    <div class="text-6xl mb-2">🌳</div>
+                                    <p class="text-sm font-medium">Natuurlijke schaduw</p>
+                                </div>
+                            </div>
+                            <div class="carousel-slide bg-gradient-to-br from-teal-200 to-teal-300 flex items-center justify-center">
+                                <div class="text-center text-teal-700">
+                                    <div class="text-6xl mb-2">🎋</div>
+                                    <p class="text-sm font-medium">Bamboebos</p>
+                                </div>
+                            </div>
+                            <div class="carousel-slide bg-gradient-to-br from-cyan-200 to-cyan-300 flex items-center justify-center">
+                                <div class="text-center text-cyan-700">
+                                    <div class="text-6xl mb-2">💧</div>
+                                    <p class="text-sm font-medium">Waterspelen</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-nav carousel-prev" onclick="changeSlide('carousel-detente', -1)">‹</button>
+                        <button class="carousel-nav carousel-next" onclick="changeSlide('carousel-detente', 1)">›</button>
+                        <div class="carousel-indicators">
+                            <div class="carousel-dot active" onclick="goToSlide('carousel-detente', 0)"></div>
+                            <div class="carousel-dot" onclick="goToSlide('carousel-detente', 1)"></div>
+                            <div class="carousel-dot" onclick="goToSlide('carousel-detente', 2)"></div>
+                            <div class="carousel-dot" onclick="goToSlide('carousel-detente', 3)"></div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-blue-600 mb-4">Ontspanning & Welzijn</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Natuurlijke schaduw, opkomend bamboebos, verfrissende waterspelen 
+                            en zwemmen in het frisse water van de Chassezac.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evenementen Sectie -->
+            <div id="events" class="mb-16">
+                <h3 class="text-4xl font-bold text-center text-vert-nature mb-12">Evenementen & Workshops</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="glass-card rounded-xl p-8">
+                        <div class="aspect-video bg-gradient-to-br from-purple-200 to-pink-200 rounded-lg mb-6 flex items-center justify-center">
+                            <div class="text-center text-purple-600">
+                                <div class="text-4xl mb-2">🎪✨</div>
+                                <p class="text-sm font-medium">Showfoto's hier</p>
+                            </div>
+                        </div>
+                        <h4 class="text-2xl font-bold text-vert-nature mb-4">Shows & Theatrale bezoeken</h4>
+                        <p class="text-gray-600">
+                            Magische momenten waar kunst de natuur ontmoet, 
+                            verhalen die tot leven komen in onze betoverende omgeving.
+                        </p>
+                    </div>
+                    
+                    <div class="glass-card rounded-xl p-8">
+                        <div class="aspect-video bg-gradient-to-br from-yellow-200 to-orange-200 rounded-lg mb-6 flex items-center justify-center">
+                            <div class="text-center text-yellow-600">
+                                <div class="text-4xl mb-2">🎨🔨</div>
+                                <p class="text-sm font-medium">Workshopfoto's hier</p>
+                            </div>
+                        </div>
+                        <h4 class="text-2xl font-bold text-vert-nature mb-4">Workshops</h4>
+                        <p class="text-gray-600">
+                            Theater, natuurlijke cosmetica, dierenontdekking, 
+                            ecologische landbouwpraktijken... Ontdekkingen voor iedereen!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hoofdoproep tot actie - aangepaste tekst -->
+            <div class="text-center">
+                <div class="glass-card rounded-3xl p-12 shadow-2xl" style="background: linear-gradient(45deg, rgba(74, 124, 89, 0.9), rgba(135, 206, 235, 0.8));">
+                    <h3 class="text-4xl font-bold text-white mb-8 text-shadow">Echte magie wordt ter plaatse ervaren</h3>
+                    <p class="text-xl text-white/95 mb-10 max-w-3xl mx-auto text-shadow leading-relaxed">
+                        Kom L'Attrape-Rêves ervaren met al uw zintuigen, neem uw tijd, 
+                        laat u meeslepen door verwondering en ontdekking.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})" 
+                                class="bg-white text-vert-nature px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                            📍 Plan mijn bezoek
+                        </button>
+                        <button class="border-3 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-vert-nature transition-all duration-300 transform hover:scale-105">
+                            💝 Ontdek onze activiteiten
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Sectie -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-bold text-vert-nature mb-8">Doe mee met het avontuur</h2>
+                <p class="text-xl text-gray-700 max-w-2xl mx-auto">
+                    Of u nu familie, vrienden of gewoon nieuwsgierig bent, 
+                    L'Attrape-Rêves opent zijn deuren voor onvergetelijke momenten.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <!-- Praktische informatie -->
+                <div class="glass-card rounded-2xl p-8 shadow-xl">
+                    <h3 class="text-3xl font-bold text-vert-nature mb-8">Praktische informatie</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-vert-nature rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-xl">📍</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-vert-nature mb-2">Adres</h4>
+                                <p class="text-gray-600">514 chemin de la Vernède<br>07140 Gravières, Ardèche, Frankrijk</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-orange-terracotta rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-xl">⏰</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-vert-nature mb-2">Opening</h4>
+                                <p class="text-gray-600">Gepland voor 2026<br>Volg ons voor updates</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-bleu-ciel rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-xl">🎫</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-vert-nature mb-2">Reserveringen</h4>
+                                <p class="text-gray-600">Workshops en shows<br>op reservering</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact -->
+                <div class="glass-card rounded-2xl p-8 shadow-xl">
+                    <h3 class="text-3xl font-bold text-vert-nature mb-8">Neem contact met ons op</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-orange-terracotta rounded-full flex items-center justify-center">
+                                <span class="text-white text-xl">✉️</span>
+                            </div>
+                            <div>
+                                <p class="font-medium text-vert-nature">E-mail</p>
+                                <a href="mailto:lattrapereves@mailo.com" 
+                                   class="text-orange-terracotta hover:underline text-lg">
+                                    lattrapereves@mailo.com
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-vert-nature to-bleu-ciel rounded-xl p-6 text-white">
+                            <h4 class="font-bold mb-4 text-lg">🌟 Gemeenschapsproject</h4>
+                            <p class="leading-relaxed">
+                                L'Attrape-Rêves is meer dan een park: het is een gemeenschapsproject 
+                                dat het hele jaar door activiteiten aanbiedt. Sluit u aan bij onze gemeenschap!
+                            </p>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <a href="https://www.facebook.com/lattrapereves07" target="_blank" class="flex items-center justify-center space-x-2 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                                <span>📘</span>
+                                <span class="font-medium">Facebook</span>
+                            </a>
+                            <a href="https://www.instagram.com/lattrapereves07" target="_blank" class="flex items-center justify-center space-x-2 bg-pink-600 text-white py-3 rounded-lg hover:bg-pink-700 transition-colors">
+                                <span>📷</span>
+                                <span class="font-medium">Instagram</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-vert-nature text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div class="text-center md:text-left">
+                    <img src="/logo-attrape-reves.png" 
+                         alt="L'Attrape-Rêves" class="w-16 h-16 mx-auto md:mx-0 mb-4 object-contain">
+                    <h3 class="text-2xl font-bold mb-2">L'Attrape-Rêves</h3>
+                    <p class="text-vert-light">Wonderpark</p>
+                </div>
+                
+                <div class="text-center">
+                    <h4 class="font-bold mb-4 text-lg">Volg ons avontuur</h4>
+                    <div class="flex justify-center space-x-4">
+                        <a href="https://www.facebook.com/lattrapereves07" target="_blank" class="w-10 h-10 bg-bleu-ciel rounded-full flex items-center justify-center hover:bg-blue-400 transition-colors">
+                            <span>📘</span>
+                        </a>
+                        <a href="https://www.instagram.com/lattrapereves07" target="_blank" class="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center hover:bg-pink-400 transition-colors">
+                            <span>📷</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <h4 class="font-bold mb-4 text-lg">Contact</h4>
+                    <p class="text-vert-light mb-2">514 chemin de la Vernède<br>07140 Gravières, Ardèche, Frankrijk</p>
+                    <a href="mailto:lattrapereves@mailo.com" class="text-bleu-ciel hover:text-blue-300 transition-colors">
+                        lattrapereves@mailo.com
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-vert-light pt-8 text-center text-vert-light">
+                <p>&copy; 2025 L'Attrape-Rêves. Alle rechten voorbehouden. | Gemeenschapsproject in ontwikkeling</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Carrousel staten
+        const carouselStates = {
+            'carousel-animaux': { currentSlide: 0, totalSlides: 4 },
+            'carousel-activites': { currentSlide: 0, totalSlides: 3 },
+            'carousel-detente': { currentSlide: 0, totalSlides: 4 }
+        };
+
+        // Functie om slide te veranderen
+        function changeSlide(carouselId, direction) {
+            const state = carouselStates[carouselId];
+            const track = document.querySelector('#' + carouselId + ' .carousel-track');
+            const dots = document.querySelectorAll('#' + carouselId + ' .carousel-dot');
+            
+            // Bereken nieuwe positie
+            state.currentSlide += direction;
+            if (state.currentSlide < 0) state.currentSlide = state.totalSlides - 1;
+            if (state.currentSlide >= state.totalSlides) state.currentSlide = 0;
+            
+            // Pas transformatie toe
+            track.style.transform = 'translateX(-' + (state.currentSlide * 100) + '%)';
+            
+            // Update indicatoren
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === state.currentSlide);
+            });
+        }
+
+        // Functie om naar specifieke slide te gaan
+        function goToSlide(carouselId, slideIndex) {
+            const state = carouselStates[carouselId];
+            const track = document.querySelector('#' + carouselId + ' .carousel-track');
+            const dots = document.querySelectorAll('#' + carouselId + ' .carousel-dot');
+            
+            state.currentSlide = slideIndex;
+            track.style.transform = 'translateX(-' + (slideIndex * 100) + '%)';
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === slideIndex);
+            });
+        }
+
+        // Automatisch afspelen van carrousels
+        Object.keys(carouselStates).forEach(carouselId => {
+            setInterval(() => {
+                changeSlide(carouselId, 1);
+            }, 4000 + Math.random() * 2000); // Tussen 4 en 6 seconden
+        });
+
+        // Scrollspy navigatie en dynamische stijl
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+            } else {
+                navbar.style.backgroundColor = 'transparent';
+            }
+        });
+
+        // Mobiel menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('active');
+        }
+        
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.remove('active');
+        }
+        
+        // Sluit mobiel menu bij klikken elders
+        document.addEventListener('click', function(e) {
+            const menu = document.getElementById('mobile-menu');
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            
+            if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
+                menu.classList.remove('active');
+            }
+        });
+
+        // Vloeiend scrollen voor alle interne links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
