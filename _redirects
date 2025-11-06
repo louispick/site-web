@@ -1,0 +1,3 @@
+# Rediriger les chemins sans slash vers ceux avec slash
+/en /en/ 301
+/nl /nl/ 301
