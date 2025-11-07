@@ -14,13 +14,14 @@ Le site est disponible en trois langues :
 
 ```
 .
-├── index.html          # Version française (page principale)
+├── index.html              # Version française (page principale)
+├── logo-attrape-reves.png  # Logo avec transparence
 ├── en/
-│   └── index.html     # Version anglaise
+│   └── index.html         # Version anglaise
 ├── nl/
-│   └── index.html     # Version néerlandaise
-├── _redirects         # Redirections Cloudflare Pages
-└── wrangler.toml      # Configuration Cloudflare
+│   └── index.html         # Version néerlandaise
+├── _redirects             # Redirections Cloudflare Pages
+└── wrangler.toml          # Configuration Cloudflare
 ```
 
 ## 🚀 Déploiement
@@ -37,6 +38,7 @@ wrangler pages deploy . --project-name=attrape-reves --branch=main
 
 - ✅ Design responsive (mobile, tablette, desktop)
 - ✅ Navigation multilingue avec sélecteur de langue
+- ✅ Logo avec transparence (attrape-rêves)
 - ✅ Carrousels d'images interactifs
 - ✅ Animations fluides
 - ✅ Menu mobile
