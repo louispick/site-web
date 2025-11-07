@@ -157,6 +157,13 @@
         }
         
         .carousel-dot.active {
+        
+        /* Carousel image styles */
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
             background: white;
         }
 
@@ -280,29 +287,17 @@
                 <div class="glass-card rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-shadow duration-300">
                     <div class="aspect-video rounded-xl mb-6 carousel-container" id="carousel-animaux">
                         <div class="carousel-track">
-                            <div class="carousel-slide bg-gradient-to-br from-green-200 to-green-300 flex items-center justify-center">
-                                <div class="text-center text-vert-nature">
-                                    <div class="text-6xl mb-2">🐐</div>
-                                    <p class="text-sm font-medium">Onze geiten</p>
-                                </div>
+                            <div class="carousel-slide">
+                                <img src="/images/chevre-1.jpg" alt="Onze geiten bij L'Attrape-Rêves">
                             </div>
-                            <div class="carousel-slide bg-gradient-to-br from-pink-200 to-pink-300 flex items-center justify-center">
-                                <div class="text-center text-pink-700">
-                                    <div class="text-6xl mb-2">🐷</div>
-                                    <p class="text-sm font-medium">Onze varkens</p>
-                                </div>
+                            <div class="carousel-slide">
+                                <img src="/images/cochon.jpg" alt="Onze varkens bij L'Attrape-Rêves">
                             </div>
-                            <div class="carousel-slide bg-gradient-to-br from-yellow-200 to-yellow-300 flex items-center justify-center">
-                                <div class="text-center text-yellow-700">
-                                    <div class="text-6xl mb-2">🐴</div>
-                                    <p class="text-sm font-medium">Onze ezels</p>
-                                </div>
+                            <div class="carousel-slide">
+                                <img src="/images/ane-1.jpg" alt="Onze ezels bij L'Attrape-Rêves">
                             </div>
-                            <div class="carousel-slide bg-gradient-to-br from-orange-200 to-orange-300 flex items-center justify-center">
-                                <div class="text-center text-orange-700">
-                                    <div class="text-6xl mb-2">🐓</div>
-                                    <p class="text-sm font-medium">Onze kippen</p>
-                                </div>
+                            <div class="carousel-slide">
+                                <img src="/images/poules-1.jpg" alt="Onze kippen bij L'Attrape-Rêves">
                             </div>
                         </div>
                         <button class="carousel-nav carousel-prev" onclick="changeSlide('carousel-animaux', -1)">‹</button>
@@ -327,23 +322,14 @@
                 <div class="glass-card rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-shadow duration-300">
                     <div class="aspect-video rounded-xl mb-6 carousel-container" id="carousel-activites">
                         <div class="carousel-track">
-                            <div class="carousel-slide bg-gradient-to-br from-purple-200 to-purple-300 flex items-center justify-center">
-                                <div class="text-center text-purple-700">
-                                    <div class="text-6xl mb-2">🎭</div>
-                                    <p class="text-sm font-medium">Leuke spelletjes</p>
-                                </div>
+                            <div class="carousel-slide">
+                                <img src="/images/activites-enfants-1.jpg" alt="Activiteiten met kinderen">
                             </div>
-                            <div class="carousel-slide bg-gradient-to-br from-red-200 to-red-300 flex items-center justify-center">
-                                <div class="text-center text-red-700">
-                                    <div class="text-6xl mb-2">🏰</div>
-                                    <p class="text-sm font-medium">Hutten</p>
-                                </div>
+                            <div class="carousel-slide">
+                                <img src="/images/activites-enfants-2.jpg" alt="Dieren ontdekken">
                             </div>
-                            <div class="carousel-slide bg-gradient-to-br from-indigo-200 to-indigo-300 flex items-center justify-center">
-                                <div class="text-center text-indigo-700">
-                                    <div class="text-6xl mb-2">🎪</div>
-                                    <p class="text-sm font-medium">Installaties</p>
-                                </div>
+                            <div class="carousel-slide">
+                                <img src="/images/activites-enfants-3.jpg" alt="Workshops voor kinderen">
                             </div>
                         </div>
                         <button class="carousel-nav carousel-prev" onclick="changeSlide('carousel-activites', -1)">‹</button>
@@ -367,29 +353,17 @@
                 <div class="glass-card rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-shadow duration-300">
                     <div class="aspect-video rounded-xl mb-6 carousel-container" id="carousel-detente">
                         <div class="carousel-track">
-                            <div class="carousel-slide bg-gradient-to-br from-blue-200 to-blue-300 flex items-center justify-center">
-                                <div class="text-center text-blue-700">
-                                    <div class="text-6xl mb-2">🌊</div>
-                                    <p class="text-sm font-medium">De Chassezac</p>
-                                </div>
+                            <div class="carousel-slide">
+                                <img src="/images/ane-2.jpg" alt="Ezels ontdekken bij de Chassezac">
                             </div>
-                            <div class="carousel-slide bg-gradient-to-br from-green-200 to-green-300 flex items-center justify-center">
-                                <div class="text-center text-green-700">
-                                    <div class="text-6xl mb-2">🌳</div>
-                                    <p class="text-sm font-medium">Natuurlijke schaduw</p>
-                                </div>
+                            <div class="carousel-slide">
+                                <img src="/images/poules-2.jpg" alt="Dieren observeren">
                             </div>
-                            <div class="carousel-slide bg-gradient-to-br from-teal-200 to-teal-300 flex items-center justify-center">
-                                <div class="text-center text-teal-700">
-                                    <div class="text-6xl mb-2">🎋</div>
-                                    <p class="text-sm font-medium">Bamboebos</p>
-                                </div>
+                            <div class="carousel-slide">
+                                <img src="/images/atelier-yoga.jpg" alt="Wellness workshops in de buitenlucht">
                             </div>
-                            <div class="carousel-slide bg-gradient-to-br from-cyan-200 to-cyan-300 flex items-center justify-center">
-                                <div class="text-center text-cyan-700">
-                                    <div class="text-6xl mb-2">💧</div>
-                                    <p class="text-sm font-medium">Waterspelen</p>
-                                </div>
+                            <div class="carousel-slide">
+                                <img src="/images/evenement-soiree.jpg" alt="Feestelijke avonden en evenementen">
                             </div>
                         </div>
                         <button class="carousel-nav carousel-prev" onclick="changeSlide('carousel-detente', -1)">‹</button>
@@ -416,11 +390,8 @@
                 <h3 class="text-4xl font-bold text-center text-vert-nature mb-12">Evenementen & Workshops</h3>
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="glass-card rounded-xl p-8">
-                        <div class="aspect-video bg-gradient-to-br from-purple-200 to-pink-200 rounded-lg mb-6 flex items-center justify-center">
-                            <div class="text-center text-purple-600">
-                                <div class="text-4xl mb-2">🎪✨</div>
-                                <p class="text-sm font-medium">Showfoto's hier</p>
-                            </div>
+                        <div class="aspect-video rounded-lg mb-6 overflow-hidden">
+                            <img src="/images/evenement-soiree.jpg" alt="Shows en avonden bij L'Attrape-Rêves" class="w-full h-full object-cover">
                         </div>
                         <h4 class="text-2xl font-bold text-vert-nature mb-4">Shows & Theatrale bezoeken</h4>
                         <p class="text-gray-600">
@@ -430,11 +401,8 @@
                     </div>
                     
                     <div class="glass-card rounded-xl p-8">
-                        <div class="aspect-video bg-gradient-to-br from-yellow-200 to-orange-200 rounded-lg mb-6 flex items-center justify-center">
-                            <div class="text-center text-yellow-600">
-                                <div class="text-4xl mb-2">🎨🔨</div>
-                                <p class="text-sm font-medium">Workshopfoto's hier</p>
-                            </div>
+                        <div class="aspect-video rounded-lg mb-6 overflow-hidden">
+                            <img src="/images/atelier-yoga.jpg" alt="Welzijnsworkshops bij L'Attrape-Rêves" class="w-full h-full object-cover">
                         </div>
                         <h4 class="text-2xl font-bold text-vert-nature mb-4">Workshops</h4>
                         <p class="text-gray-600">
